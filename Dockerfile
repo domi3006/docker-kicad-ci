@@ -4,7 +4,7 @@ MAINTAINER Dominik Laton <dominik.laton@web.de>
 RUN apt-get update && apt-get -yqq install software-properties-common
 
 RUN add-apt-repository --yes ppa:kicad/kicad-5.1-releases && \
-	apt-get -yqq --no-install-recommends install kicad kicad-libraries
+	apt-get -yqq --no-install-recommends install kicad kicad-libraries kicad-packages3d kicad-symbols kicad-templates kicad-footprints
 
 RUN apt-get -yqq install \
 	python3 \
