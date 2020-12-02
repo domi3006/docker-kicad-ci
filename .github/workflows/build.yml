@@ -19,3 +19,16 @@ jobs:
           CR_PAT: ${{ secrets.CR_PAT }}
       - name: Push to registry
         run: docker push ghcr.io/domi3006/docker-kicad-ci:latest
+
+  test_docker-kicad-ci:
+    runs-on: ubuntu-20.04
+    container: ghcr.io/domi3006/docker-kicad-ci:latest
+    needs: build_docker-kicad-ci
+    steps:
+      # TODO: delete image from registry
+      - uses: actions/checkout@v2
+        with:
+          submodules: 'true'
+      - name: run tests
+        run: |
+          make -C tests all
