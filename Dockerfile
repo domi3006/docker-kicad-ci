@@ -16,17 +16,7 @@ RUN apt-get -yqq install \
 	wget \
 	git
 
-# FIXME: why does this not work?
-#RUN pip3 install kiauto
-#RUN pip3 install kibom
-#RUN pip3 install pcbdraw
-#RUN pip3 install --no-compile kibot
 
-#RUN mkdir -p $HOME/.kicad_plugins && \
-#	cd $HOME/.kicad_plugins && \
-#	git clone https://github.com/openscopeproject/InteractiveHtmlBom.git && \
-#	cd InteractiveHtmlBom && \
-#	git fetch --tags && git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
 
 RUN mkdir -p /tmp/debs && cd /tmp/debs && \
 	curl -s https://api.github.com/repos/INTI-CMNB/KiAuto/releases/latest | grep "browser_download_url.*deb" | cut -d : -f 2,3 | tr -d \" | wget -i - && \
