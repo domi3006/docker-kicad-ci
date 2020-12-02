@@ -41,6 +41,12 @@ jobs:
       - name: run tests
         run: |
           make -C tests all
+      - name: Upload test results
+        uses: actions/upload-artifact@v2
+        with:
+          name: all
+          path: |
+            tests/Fabrication/
 
   test_push_docker-kicad-ci:
     runs-on: ubuntu-20.04
@@ -55,3 +61,9 @@ jobs:
       - name: run tests
         run: |
           make -C tests all
+      - name: Upload test results
+        uses: actions/upload-artifact@v2
+        with:
+          name: all
+          path: |
+            tests/Fabrication/
