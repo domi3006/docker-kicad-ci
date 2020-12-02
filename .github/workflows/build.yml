@@ -12,16 +12,39 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build the Docker image
+        if: ${{ github.event_name == 'pull_request' }}
+        run: docker build . --file Dockerfile --tag ghcr.io/domi3006/docker-kicad-ci:pullrequest
+      - name: Build the Docker image
+        if: ${{ github.event_name == 'push' }}
         run: docker build . --file Dockerfile --tag ghcr.io/domi3006/docker-kicad-ci:latest
       - name: Login to docker registry
         run: echo $CR_PAT | docker login ghcr.io -u domi3006 --password-stdin
         env:
           CR_PAT: ${{ secrets.CR_PAT }}
       - name: Push to registry
+        if: ${{ github.event_name == 'pull_request' }}
+        run: docker push ghcr.io/domi3006/docker-kicad-ci:pullrequest
+      - name: Push to registry
+        if: ${{ github.event_name == 'push' }}
         run: docker push ghcr.io/domi3006/docker-kicad-ci:latest
 
-  test_docker-kicad-ci:
+  test_pullrequest_docker-kicad-ci:
     runs-on: ubuntu-20.04
+    if: ${{ github.event_name == 'pull_request' }}
+    container: ghcr.io/domi3006/docker-kicad-ci:pullrequest
+    needs: build_docker-kicad-ci
+    steps:
+      # TODO: delete image from registry
+      - uses: actions/checkout@v2
+        with:
+          submodules: 'true'
+      - name: run tests
+        run: |
+          make -C tests all
+
+  test_push_docker-kicad-ci:
+    runs-on: ubuntu-20.04
+    if: ${{ github.event_name == 'push' }}
     container: ghcr.io/domi3006/docker-kicad-ci:latest
     needs: build_docker-kicad-ci
     steps:
