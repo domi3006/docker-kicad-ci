@@ -12,6 +12,7 @@ RUN apt-get -yqq install \
 	fakeroot \
 	git \
 	jq \
+	librsvg2-bin \
 	libxdo3 \
 	python3 \
 	python3-colorama \
