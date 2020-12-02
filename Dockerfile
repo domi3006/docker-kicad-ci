@@ -42,3 +42,6 @@ RUN \
 	curl -LJO $(curl $EXTRA_PARM -s https://api.github.com/repos/INTI-CMNB/KiBot/releases/latest | jq -j '.assets[0].browser_download_url') && \
 	curl $EXTRA_PARM -s https://api.github.com/repos/INTI-CMNB/PcbDraw/releases/latest | jq -j '.assets | map(.browser_download_url) | join(" ")' | xargs -n1 curl -LJO && \
 	dpkg --install ./*.deb && rm *.deb
+
+
+RUN rm -rf /var/lib/apt/lists/*
