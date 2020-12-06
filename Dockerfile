@@ -11,6 +11,7 @@ RUN apt-get -yqq install \
 	dpkg-dev \
 	fakeroot \
 	git \
+	imagemagick \
 	jq \
 	librsvg2-bin \
 	libxdo3 \
