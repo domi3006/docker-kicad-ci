@@ -10,6 +10,7 @@ RUN apt-get -yqq install \
 	curl \
 	dpkg-dev \
 	fakeroot \
+	findutils \
 	git \
 	imagemagick \
 	jq \
@@ -28,7 +29,6 @@ RUN apt-get -yqq install \
 	python3-xvfbwrapper \
 	python3-yaml \
 	recordmydesktop \
-	findutils \
 	xclip \
 	xdotool \
 	xserver-common \
